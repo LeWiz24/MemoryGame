@@ -18,7 +18,7 @@ enum class BoardSize(val numCards: Int) {
         return numCards/getWidth()
 
     }
-    fun getPairs(): Int {
+    fun getNumPairs(): Int {
         return numCards/2
     }
 }

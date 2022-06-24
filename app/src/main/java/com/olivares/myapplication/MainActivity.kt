@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.olivares.myapplication.models.BoardSize
+import com.olivares.myapplication.utils.DEFAULT_ICONS
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvMoves: TextView
     private lateinit var tvPairs: TextView
 
-    private var boardSize: BoardSize = BoardSize.HARD
+    private var boardSize: BoardSize = BoardSize.EASY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +26,13 @@ class MainActivity : AppCompatActivity() {
         tvMoves = findViewById(R.id.tvMoves)
         tvPairs = findViewById(R.id.tvPairs)
 
+        // Shuffle and get resourcces from constants cile
+
+        val chosenImage = DEFAULT_ICONS.shuffled().take(boardSize.getNumPairs())
+        val randomizedImages = (chosenImage + chosenImage).shuffled()
+
         // Adapter is responsible for binding data to each view in the rv
-        rvBoard.adapter = MemoryBoardAdapter(this, boardSize)
+        rvBoard.adapter = MemoryBoardAdapter(this, boardSize, randomizedImages)
         rvBoard.setHasFixedSize(true)
 
         // Setting the layout manager for RV (one of 2 key components)
