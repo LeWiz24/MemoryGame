@@ -2,10 +2,13 @@ package com.olivares.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.olivares.myapplication.models.BoardSize
+import com.olivares.myapplication.models.MemoryCard
+import com.olivares.myapplication.models.MemoryGame
 import com.olivares.myapplication.utils.DEFAULT_ICONS
 
 class MainActivity : AppCompatActivity() {
@@ -26,13 +29,18 @@ class MainActivity : AppCompatActivity() {
         tvMoves = findViewById(R.id.tvMoves)
         tvPairs = findViewById(R.id.tvPairs)
 
-        // Shuffle and get resourcces from constants cile
 
-        val chosenImage = DEFAULT_ICONS.shuffled().take(boardSize.getNumPairs())
-        val randomizedImages = (chosenImage + chosenImage).shuffled()
+
+        val memoryGame = MemoryGame(boardSize)
+
 
         // Adapter is responsible for binding data to each view in the rv
-        rvBoard.adapter = MemoryBoardAdapter(this, boardSize, randomizedImages)
+        rvBoard.adapter = MemoryBoardAdapter(this, boardSize,  memoryGame.cards, object: MemoryBoardAdapter.CardClickListener{
+            override fun onCardClicked(position: Int) {
+                Log.i("Hello", "onCardClicked: ")
+            }
+
+        })
         rvBoard.setHasFixedSize(true)
 
         // Setting the layout manager for RV (one of 2 key components)
