@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.olivares.myapplication.models.BoardSize
 import kotlin.math.min
 
-class MemoryBoardAdapter(private val context: Context, private val numPieces: Int) :
+class MemoryBoardAdapter(private val context: Context, private val boardSize: BoardSize) :
     RecyclerView.Adapter<MemoryBoardAdapter.ViewHolder>() {
 
     companion object {
@@ -22,8 +23,8 @@ class MemoryBoardAdapter(private val context: Context, private val numPieces: In
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         // Set size of each element here
-        val cardWidth = (parent.width / 2) - (2 * MARGIN_SIZE)
-        val cardHeight = (parent.height / 4) - (2 * MARGIN_SIZE)
+        val cardWidth = (parent.width / boardSize.getWidth()) - (2 * MARGIN_SIZE)
+        val cardHeight = (parent.height / boardSize.getHeight()) - (2 * MARGIN_SIZE)
         val cardLength = min(cardHeight, cardWidth)
 
         // Inflate our layout here
@@ -43,7 +44,7 @@ class MemoryBoardAdapter(private val context: Context, private val numPieces: In
     }
 
     // Sets item count to hte number of pieces on screen
-    override fun getItemCount() = numPieces
+    override fun getItemCount(): Int = boardSize.numCards
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

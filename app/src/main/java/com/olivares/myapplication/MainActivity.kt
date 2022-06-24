@@ -2,11 +2,10 @@ package com.olivares.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.GridLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
+import com.olivares.myapplication.models.BoardSize
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvBoard: RecyclerView
     private lateinit var tvMoves: TextView
     private lateinit var tvPairs: TextView
+
+    private var boardSize: BoardSize = BoardSize.HARD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         tvPairs = findViewById(R.id.tvPairs)
 
         // Adapter is responsible for binding data to each view in the rv
-        rvBoard.adapter = MemoryBoardAdapter(this, 8)
+        rvBoard.adapter = MemoryBoardAdapter(this, boardSize)
         rvBoard.setHasFixedSize(true)
 
         // Setting the layout manager for RV (one of 2 key components)
         // Layout manager is responsible for measuring and positioning items
-        rvBoard.layoutManager = GridLayoutManager(this,2)
+        rvBoard.layoutManager = GridLayoutManager(this,boardSize.getWidth())
 
 
 
